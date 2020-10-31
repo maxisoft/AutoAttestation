@@ -1,0 +1,49 @@
+{
+  "reasons": [
+    {
+      "id": "working",
+      "code": "travail",
+      "pdf_offset_y": 578
+    },
+    {
+      "id": "buying",
+      "code": "travail",
+      "pdf_offset_y": 533
+    },
+    {
+      "id": "health",
+      "code": "sante",
+      "pdf_offset_y": 477
+    },
+    {
+      "id": "familly",
+      "code": "famille",
+      "pdf_offset_y": 435
+    },
+    {
+      "id": "handicap",
+      "code": "handicap",
+      "pdf_offset_y": 396
+    },
+    {
+      "id": "sport",
+      "code": "sport_animaux",
+      "pdf_offset_y": 358
+    },
+    {
+      "id": "summon",
+      "code": "convocation",
+      "pdf_offset_y": 295
+    },
+    {
+      "id": "mission",
+      "code": "missions",
+      "pdf_offset_y": 255
+    },
+    {
+      "id": "child",
+      "code": "enfants",
+      "pdf_offset_y": 211
+    }
+  ]
+}
