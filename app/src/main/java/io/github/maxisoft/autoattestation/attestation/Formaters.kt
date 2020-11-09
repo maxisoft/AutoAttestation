@@ -8,5 +8,14 @@ val dateFormat: SimpleDateFormat by lazy {
 }
 
 val timeFormat: SimpleDateFormat by lazy {
+    SimpleDateFormat("hh:mm aa", Locale.CANADA)
+}
+
+
+val localTimeFormat: SimpleDateFormat by lazy {
     SimpleDateFormat("HH:mm", Locale.FRANCE)
+}
+
+val datetimeFileFormat : SimpleDateFormat by lazy {
+    SimpleDateFormat("yyyy_MM_dd.HH_mm", Locale.FRANCE)
 }

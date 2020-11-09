@@ -10,14 +10,12 @@ import com.tom_roush.pdfbox.pdmodel.font.PDFont
 import com.tom_roush.pdfbox.pdmodel.font.PDType1Font
 import com.tom_roush.pdfbox.pdmodel.graphics.image.LosslessFactory
 import com.tom_roush.pdfbox.pdmodel.graphics.image.PDImageXObject
-import io.github.maxisoft.autoattestation.attestation.form.FormDataAdapterService
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 
 class AttestationGenerator(
-    private val settings: AttestationSettings,
-    private val formDataAdapterService: FormDataAdapterService
+    private val settings: AttestationSettings
 ) {
 
     fun generate(buff: InputStream): ByteArray {
@@ -51,6 +49,7 @@ class AttestationGenerator(
             }
         }
 
+        // magic numbers extracted from official javascript
         drawText("${settings.firstName} ${settings.lastName}", 119f, 696f)
         drawText(settings.formattedBirthDay, 119f, 674f)
         drawText(settings.lieuNaissance, 297f, 674f)
@@ -86,7 +85,7 @@ class AttestationGenerator(
     private fun printQRCode(
         pdf: PDDocument
     ) {
-        val code = GenQRCode(settings.qrData, pdf)
+        val code = genQRCode(settings.qrData, pdf)
         val page1 = pdf.pages.first()
 
         PDPageContentStream(pdf, page1, true, true, true).use {
@@ -103,7 +102,11 @@ class AttestationGenerator(
         }
     }
 
-    private fun GenQRCode(payload: String, pdf: PDDocument): PDImageXObject? {
+    fun genQRCode(dimention: Int = 300): QRGEncoder {
+        return QRGEncoder(settings.qrData, null, QRGContents.Type.TEXT, dimention)
+    }
+
+    private fun genQRCode(payload: String, pdf: PDDocument): PDImageXObject? {
         Log.d("Attestation", "encoding $payload")
         val qrgEncoder = QRGEncoder(payload, null, QRGContents.Type.TEXT, 300)
         val bitmap = qrgEncoder.bitmap!!

@@ -1,20 +1,43 @@
 <resources>
-    <string name="app_name">AutoAttestation</string>
+    <string name="app_name">Auto Attestation</string>
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">Settings</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="qr_code" translatable="false">Qr code</string>
+    <string name="create_pdf">Create a pdf file</string>
+    <string name="save_pdf">Save as pdf…</string>
+    <string name="open_previous_pdf">Open previous pdf file</string>
+    <string name="create_shortcut">Create a shortcut</string>
+    <string name="qr_transcription_example" translatable="false">Cree le 06/11/2020 a 10:38AM;\nNom: M;\nPrenom: M;\nNaissance x;\nAdresse: x;\nSortie: 06/11/2020 a 12h00 AM;\nMotifs: sport animaux</string>
+    <string name="firstname">First name</string>
+    <string name="lastname">Last name</string>
+    <string name="birthday">Birthday</string>
+    <string name="birthplace">Birthplace</string>
+    <string name="address">Addresse</string>
+    <string name="city">City</string>
+    <string name="leaving_date">Leaving date</string>
+    <string name="leaving_hour">Leaving hour</string>
+    <string name="work">Work</string>
+    <string name="shopping">Shopping</string>
+    <string name="health">Health</string>
+    <string name="familly">Familly</string>
+    <string name="handicap">Handicap</string>
+    <string name="sport_and_pets">Sport / Pets</string>
+    <string name="summon">Convocation</string>
+    <string name="mission">Mission</string>
+    <string name="children">Children</string>
+    <string name="please_complete_form">Please complete the form</string>
+    <string name="ignore">Ignore</string>
+    <string name="no_pdf_found">No pdf file found</string>
+    <string name="generate">Generate</string>
+    <string name="pdf_created">Pdf file created</string>
+    <string name="open">Open</string>
+    <string name="no_pdf_reader_app">No pdf reader app found</string>
+    <string name="generating_pdf">Generating a pdf file…</string>
+    <string name="cancel">Cancel</string>
+    <string name="postal_code">Postal code</string>
+    <string name="name_category">Name</string>
+    <string name="birth_category">Birth info</string>
+    <string name="address_category">Address</string>
+    <string name="leaving_datetime_category">Leaving date and time</string>
+    <string name="why_category">Why ?</string>
 </resources>

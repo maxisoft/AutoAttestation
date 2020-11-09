@@ -2,10 +2,40 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/action_show_qr"
+        android:icon="@drawable/baseline_qr_code_2_24"
+        android:orderInCategory="10"
+        android:title="@string/qr_code"
+        app:showAsAction="ifRoom" />
+
+
     <item
         android:id="@+id/action_save"
-        android:icon="@android:drawable/ic_menu_save"
-        android:orderInCategory="100"
-        android:title="Save"
-        app:showAsAction="always" />
+        android:icon="@drawable/baseline_picture_as_pdf_24"
+        android:orderInCategory="15"
+        android:title="@string/create_pdf"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_save_as"
+        android:icon="@drawable/baseline_save_24"
+        android:orderInCategory="20"
+        android:title="@string/save_pdf"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/action_open_prev"
+        android:icon="@drawable/baseline_restore_page_24"
+        android:orderInCategory="30"
+        android:title="@string/open_previous_pdf"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_create_shortcut"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:orderInCategory="40"
+        android:title="@string/create_shortcut"
+        app:showAsAction="withText" />
 </menu>

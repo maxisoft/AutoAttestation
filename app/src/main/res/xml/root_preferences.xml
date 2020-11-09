@@ -1,114 +1,129 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="Nom">
-        <EditTextPreference
+    <PreferenceCategory app:title="@string/name_category">
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="textPersonName"
             app:defaultValue="Dominique"
             app:key="firstname"
-            app:title="Prénom"
+            app:title="@string/firstname"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="textPersonName"
             app:defaultValue="Dupont"
             app:key="lastname"
-            app:title="Nom"
+            app:title="@string/lastname"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Info de naissance">
-        <EditTextPreference
-            app:defaultValue="01/01/1970"
-            app:key="birthdate"
-            app:title="Date de naissance (au format jj/mm/aaaa)"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
+    <PreferenceCategory app:title="@string/birth_category">
+        <com.takisoft.preferencex.DatePickerPreference
+            android:defaultValue="1/1/2000"
+            android:key="birthday"
+            android:persistent="true"
+            android:title="@string/birthday" />
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
             app:defaultValue="Lyon"
             app:key="birthplace"
-            app:title="Lieu de naissance"
+            app:title="@string/birthplace"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Addresse">
-        <EditTextPreference
+    <PreferenceCategory app:title="@string/address_category">
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
             app:defaultValue="999 avenue de france"
             app:key="address"
-            app:title="Adresse"
+            app:title="@string/address"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="textPostalAddress"
             app:defaultValue="Paris"
-            app:key="town"
-            app:title="Ville"
+            app:key="city"
+            app:title="@string/city"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
+        <com.takisoft.preferencex.EditTextPreference
+            android:maxLines="1"
+            android:inputType="number"
             app:defaultValue="75001"
             app:key="zipcode"
-            app:title="Code Postal"
+            app:title="@string/postal_code"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Sortie">
-        <EditTextPreference
-            app:defaultValue="31/10/2020"
+    <PreferenceCategory app:title="@string/leaving_datetime_category">
+        <com.takisoft.preferencex.DatePickerPreference
+            android:defaultValue="10/31/2020"
+            app:pref_minDate="01/01/2019"
+            app:pref_maxDate="01/01/2030"
             app:key="date"
-            app:title="Date de sortie"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
-            app:defaultValue="10:23"
+            app:title="@string/leaving_date" />
+        <com.takisoft.preferencex.TimePickerPreference
+            android:defaultValue="10:23"
+            android:persistent="false"
             app:key="hour"
-            app:title="Heure de sortie"
+            app:title="@string/leaving_hour"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Motif de déplacement"
+    <PreferenceCategory app:title="@string/why_category"
         app:summary="certifie que mon déplacement est lié au motif suivant (cocher la case) autorisé par le décret n°2020-1310 du 29 octobre 2020 prescrivant les mesures générales nécessaires pour faire face à l'épidémie de Covid19 dans le cadre de l'état d'urgence sanitaire [1] :">
 
         <SwitchPreferenceCompat
             app:key="working"
             app:summary="Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle ou un établissement d’enseignement ou de formation, déplacements professionnels ne pouvant être différés [2], déplacements pour un concours ou un examen."
-            app:title="Travail" />
+            app:title="@string/work" />
 
         <SwitchPreferenceCompat
             app:key="buying"
             app:summary="Déplacements pour effectuer des achats de fournitures nécessaires à l'activité professionnelle, des achats de première nécessité [3] dans des établissements dont les activités demeurent autorisées, le retrait de commande et les livraisons à domicile ;"
-            app:title="Achats" />
+            app:title="@string/shopping" />
 
         <SwitchPreferenceCompat
             app:key="health"
             app:summary="Consultations, examens et soins ne pouvant être assurés à distance et l’achat de médicaments ;"
-            app:title="Santé" />
+            app:title="@string/health" />
 
         <SwitchPreferenceCompat
             app:key="familly"
             app:summary="Déplacements pour motif familial impérieux, pour l'assistance aux personnes vulnérables et précaires ou la garde d'enfants ;"
-            app:title="Famille" />
+            app:title="@string/familly" />
 
         <SwitchPreferenceCompat
             app:key="handicap"
             app:summary="Déplacement des personnes en situation de handicap et leur accompagnant ;"
-            app:title="Handicap" />
+            app:title="@string/handicap" />
 
         <SwitchPreferenceCompat
             app:key="sport"
             app:summary="Déplacements brefs, dans la limite d'une heure quotidienne et dans un rayon maximal d'un kilomètre autour du domicile, liés soit à l'activité physique individuelle des personnes, à l'exclusion de toute pratique sportive collective et de toute proximité avec d'autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie ;"
             app:defaultValue="true"
-            app:title="Sport / Animaux" />
+            app:title="@string/sport_and_pets" />
 
         <SwitchPreferenceCompat
             app:key="summon"
             app:summary="Convocation judiciaire ou administrative et pour se rendre dans un service public ;"
-            app:title="Convocation" />
+            app:title="@string/summon" />
 
         <SwitchPreferenceCompat
             app:key="mission"
             app:summary="Participation à des missions d'intérêt général sur demande de l'autorité administrative ;"
-            app:title="Mission" />
+            app:title="@string/mission" />
 
         <SwitchPreferenceCompat
             app:key="child"
             app:summary="Déplacement pour chercher les enfants à l’école et à l’occasion de leurs activités périscolaires ;"
-            app:title="Enfants" />
+            app:title="@string/children" />
 
 
     </PreferenceCategory>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Auto Attestation</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="create_pdf">Créer le pdf</string>
+    <string name="save_pdf">Enregistrer le pdf…</string>
+    <string name="open_previous_pdf">Ouvrir le dernier pdf</string>
+    <string name="create_shortcut">Créer un racourci</string>
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom</string>
+    <string name="birthday">Date de naissance</string>
+    <string name="birthplace">Lieu de naissance</string>
+    <string name="address">Adresse</string>
+    <string name="city">Ville</string>
+    <string name="leaving_date">Date de sortie</string>
+    <string name="leaving_hour">Heure de sortie</string>
+    <string name="work">Travail</string>
+    <string name="shopping">Achats</string>
+    <string name="health">Santé</string>
+    <string name="familly">Famille</string>
+    <string name="handicap">Handicap</string>
+    <string name="sport_and_pets">Sport / Animaux</string>
+    <string name="summon">Convocation</string>
+    <string name="mission">Mission</string>
+    <string name="children">Enfants</string>
+    <string name="please_complete_form">Veuillez completer les données</string>
+    <string name="ignore">Ignorer</string>
+    <string name="no_pdf_found">Aucun pdf trouvé</string>
+    <string name="generate">Générer</string>
+    <string name="pdf_created">Pdf crée</string>
+    <string name="open">Ouvrir</string>
+    <string name="no_pdf_reader_app">Pas de lecteur pdf trouvé</string>
+    <string name="generating_pdf">Generation du pdf…</string>
+    <string name="cancel">Annuler</string>
+    <string name="postal_code">Code Postal</string>
+    <string name="name_category">Nom</string>
+    <string name="birth_category">Info de naissance</string>
+    <string name="address_category">Adresse</string>
+    <string name="leaving_datetime_category">Sortie</string>
+    <string name="why_category">Motif de déplacement</string>
+</resources>

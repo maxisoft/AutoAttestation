@@ -68,7 +68,7 @@ data class AttestationSettings(
                 append(city)
                 append(lineSep)
 
-                append("Sortie :")
+                append("Sortie: ")
                 append(formattedDateSortie)
                 append(" a ")
                 append(formattedHeureSortie)
