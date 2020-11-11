@@ -455,3 +455,4 @@ fabric.properties
 .externalNativeBuild
 .cxx
 local.properties
+/app/release/output-metadata.json

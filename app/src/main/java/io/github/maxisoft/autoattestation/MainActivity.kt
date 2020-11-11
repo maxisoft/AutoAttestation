@@ -44,7 +44,6 @@ import java.io.FileOutputStream
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.collections.ArrayDeque
-import kotlin.math.absoluteValue
 
 
 class MainActivity : AppCompatActivity() {
@@ -130,6 +129,8 @@ class MainActivity : AppCompatActivity() {
                 setShowAsAction(if (actionVisibility) original else MenuItem.SHOW_AS_ACTION_NEVER)
             }
         }
+
+        menu.findItem(R.id.action_create_shortcut).isVisible = false // TODO remove once it's impl
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
@@ -137,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    private fun ShortcutIcon() {
+    private fun shortcutIcon() {
         val shortcutIntent = Intent(applicationContext, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -161,7 +162,11 @@ class MainActivity : AppCompatActivity() {
             if (settingsFragment.changeCounter > 0) {
                 continuation()
             } else {
-                Snackbar.make(content, getString(R.string.please_complete_form), Snackbar.LENGTH_SHORT)
+                Snackbar.make(
+                    content,
+                    getString(R.string.please_complete_form),
+                    Snackbar.LENGTH_SHORT
+                )
                     .apply {
                         setAction(getString(R.string.ignore).capitalize(Locale.getDefault())) { continuation() }
                         show()
@@ -185,19 +190,20 @@ class MainActivity : AppCompatActivity() {
                 if (attestationRepository.hasLatestPdf) {
                     openPdf(attestationRepository.latestPdfFile.toUri())
                 } else {
-                    Snackbar.make(content, getString(R.string.no_pdf_found), Snackbar.LENGTH_SHORT).apply {
-                        setAction(getString(R.string.generate)) {
-                            startPdfGeneration {
-                                QuickSavePdfTask(it, WeakReference(this@MainActivity))
+                    Snackbar.make(content, getString(R.string.no_pdf_found), Snackbar.LENGTH_SHORT)
+                        .apply {
+                            setAction(getString(R.string.generate)) {
+                                startPdfGeneration {
+                                    QuickSavePdfTask(it, WeakReference(this@MainActivity))
+                                }
+                                dismiss()
                             }
-                            dismiss()
+                            show()
                         }
-                        show()
-                    }
                 }
             }
             R.id.action_create_shortcut -> {
-                ShortcutIcon()
+                shortcutIcon()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -245,14 +251,14 @@ class MainActivity : AppCompatActivity() {
 
         val birthday = dateFormat.parse(getTextPref("birthday"))
             ?: error("unable to parse birth date")
-        val dateSortie =
+        val leavingDate =
             dateFormat.parse(getTextPref("date")) ?: error("unable to parse date")
-        val heureSortie =
+        val leavingTime =
             localTimeFormat.parse(getTextPref("hour")) ?: error("unable to parse time part")
         val calendar = Calendar.getInstance().apply {
-            time = dateSortie
+            time = leavingDate
             Calendar.getInstance().also {
-                it.time = heureSortie
+                it.time = leavingTime
                 arrayOf(
                     Calendar.HOUR_OF_DAY,
                     Calendar.MINUTE,
@@ -277,9 +283,23 @@ class MainActivity : AppCompatActivity() {
 
 
         val maxCreationDate = (calendar.clone() as Calendar).apply {
-            val rnd = ((Random(calendar.hashCode().toLong())
-                .nextGaussian() * 15).absoluteValue + 2).coerceIn(1.0, 120.0)
-            add(Calendar.SECOND, (rnd * -60).toInt())
+            val seed = listOf<Any>(
+                calendar,
+                birthday,
+                leavingTime,
+                reasons.map { it.hashCode() }.reduce { acc, reason -> acc * 31 + reason })
+                .map { it.hashCode().toLong() }
+                .reduce { acc, it ->
+                    31 * acc + it
+                }
+            val minutes = Random(seed).run {
+                var m: Double
+                do {
+                    m = nextGaussian() * 3 + 5
+                } while (m.toInt() !in 1..59)
+                m
+            }
+            add(Calendar.SECOND, (minutes * -60).toInt())
         }
 
         return AttestationSettings(
@@ -287,11 +307,11 @@ class MainActivity : AppCompatActivity() {
             firstName = getTextPref("firstname"),
             lastName = getTextPref("lastname"),
             birthDay = birthday,
-            lieuNaissance = getTextPref("birthplace"),
+            birthplace = getTextPref("birthplace"),
             address = getTextPref("address"),
             zipCode = getTextPref("zipcode"),
             city = getTextPref("city"),
-            dateSortie = calendar.time,
+            leavingDate = calendar.time,
             reasons = reasons.toList()
         )
     }
@@ -328,7 +348,8 @@ class MainActivity : AppCompatActivity() {
                 FileOutputStream(path).use { stream ->
                     attestationRepository.saveInto(result, settings, stream)
                 }
-            }.execute {
+            }.executeAndThen {
+                invalidateOptionsMenu()
                 createOpenPdfSnackbar()
             }
         }
@@ -340,7 +361,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createOpenPdfSnackbar(uri: Uri, show: Boolean = true): Snackbar {
-        invalidateOptionsMenu()
         return Snackbar.make(content, getString(R.string.pdf_created), Snackbar.LENGTH_LONG).also {
             it.setAction(getString(R.string.open)) { runOnUiThread { openPdf(uri) } }
             if (show) it.show()
@@ -410,7 +430,8 @@ class MainActivity : AppCompatActivity() {
                         contentResolver.openOutputStream(uri)?.use { stream ->
                             attestationRepository.saveInto(buff, settings, stream)
                         }
-                    }.execute {
+                    }.executeAndThen {
+                        invalidateOptionsMenu()
                         createOpenPdfSnackbar()
                     }
                 }
@@ -425,7 +446,7 @@ class MainActivity : AppCompatActivity() {
         override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             updateDateTimeFields()
-            attachDateTimeValidators()
+            attachValidators()
             attachChangeCounter()
             if (changeCounter > 0) {
                 scrollToPreference("date")
@@ -449,18 +470,23 @@ class MainActivity : AppCompatActivity() {
                     val prev = pref.onPreferenceChangeListener
                     pref.onPreferenceChangeListener =
                         Preference.OnPreferenceChangeListener { preference, newValue ->
-                            preferenceManager.sharedPreferences.apply {
-                                val counter = getLong("change_counter", 0)
-                                edit().putLong(
-                                    "change_counter",
-                                    counter + 1
-                                ).apply()
-
-                                if (counter <= 0) {
-                                    activity?.invalidateOptionsMenu()
-                                }
+                            if (prev != null && !prev.onPreferenceChange(preference, newValue)) {
+                                false
                             }
-                            prev?.onPreferenceChange(preference, newValue) ?: true
+                            else {
+                                preferenceManager.sharedPreferences.apply {
+                                    val counter = getLong("change_counter", 0)
+                                    edit().putLong(
+                                        "change_counter",
+                                        counter + 1
+                                    ).apply()
+
+                                    if (counter <= 0) {
+                                        activity?.invalidateOptionsMenu()
+                                    }
+                                }
+                                true
+                            }
                         }
                 }
             }
@@ -483,12 +509,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        private fun attachDateTimeValidators() {
+        private fun attachValidators() {
+            arrayOf("lastname", "firstname", "birthplace", "address", "city").forEach { key ->
+                findPreference<DialogPreference>(key)!!.apply {
+                    val prev = onPreferenceChangeListener
+                    setOnPreferenceChangeListener { pref, value ->
+                        if (prev != null && !prev.onPreferenceChange(pref, value)) false
+                        else
+                            value.toString().run {
+                                isNotEmpty() && !contains("\n") && length < 255
+                            }
+                    }
+                }
+            }
+
             arrayOf("date", "birthday").forEach { key ->
                 findPreference<DatePickerPreference>(key)!!.apply {
                     maxDate = Calendar.getInstance().apply {
                         add(Calendar.YEAR, 1)
                     }.time
+
+                    minDate = dateFormat.parse(
+                        when (key) {
+                            "birthday" -> "01/01/1900"
+                            "date" -> "01/01/2020"
+                            else -> error("unknown key $key")
+                        }
+                    )
                 }
             }
         }

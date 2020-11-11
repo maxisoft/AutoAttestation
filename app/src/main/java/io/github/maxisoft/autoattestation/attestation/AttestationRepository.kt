@@ -2,10 +2,7 @@ package io.github.maxisoft.autoattestation.attestation
 
 import android.content.Context
 import android.net.Uri
-import android.os.Debug
 import androidx.core.net.toUri
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.github.maxisoft.autoattestation.BuildConfig
 import java.io.File
 import java.io.OutputStream
@@ -20,7 +17,7 @@ class AttestationRepository(val context: Context) {
     }
 
     private fun genPdfFilename(attestationSettings: AttestationSettings): File {
-        return File(pdfDir, datetimeFileFormat.format(attestationSettings.dateSortie) + ".pdf")
+        return File(pdfDir, datetimeFileFormat.format(attestationSettings.leavingDate) + ".pdf")
     }
 
     val hasLatestPdf: Boolean

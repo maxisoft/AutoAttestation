@@ -13,13 +13,13 @@ open class AsyncTaskEz<Params, Progress, Result>(val background: (params: Array<
         return background(params)
     }
 
-    fun execute(postAction: ((Result) -> Unit)) {
+    fun executeAndThen(postAction: ((Result) -> Unit)) {
         require(post == null)
         post = postAction
         execute()
     }
 
-    fun execute(postAction: ((Result) -> Unit), vararg params: Params) {
+    fun executeAndThen(postAction: ((Result) -> Unit), vararg params: Params) {
         require(post == null)
         post = postAction
         execute(*params)

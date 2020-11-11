@@ -8,11 +8,11 @@ data class AttestationSettings(
     val lastName: String,
     val firstName: String,
     val birthDay: Date,
-    val lieuNaissance: String,
+    val birthplace: String,
     val address: String,
     val zipCode: String,
     val city: String,
-    val dateSortie: Date,
+    val leavingDate: Date,
     val reasons: List<Reason>
 ) {
 
@@ -23,12 +23,12 @@ data class AttestationSettings(
 
     val formattedDateSortie: String
         get() {
-            return dateFormat.format(dateSortie)
+            return dateFormat.format(leavingDate)
         }
 
     val formattedHeureSortie: String
         get() {
-            return timeFormat.format(dateSortie)
+            return timeFormat.format(leavingDate)
         }
 
     val formattedReasons: String
@@ -57,7 +57,7 @@ data class AttestationSettings(
                 append("Naissance: ")
                 append(formattedBirthDay)
                 append(" a ")
-                append(lieuNaissance)
+                append(birthplace)
                 append(lineSep)
 
                 append("Adresse: ")

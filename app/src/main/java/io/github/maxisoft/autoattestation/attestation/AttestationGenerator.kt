@@ -52,7 +52,7 @@ class AttestationGenerator(
         // magic numbers extracted from official javascript
         drawText("${settings.firstName} ${settings.lastName}", 119f, 696f)
         drawText(settings.formattedBirthDay, 119f, 674f)
-        drawText(settings.lieuNaissance, 297f, 674f)
+        drawText(settings.birthplace, 297f, 674f)
         drawText("${settings.address} ${settings.zipCode} ${settings.city}", 133f, 652f)
         val locationSize = getIdealFontSize(settings.city, 83f, 7f, 11f)
         drawText(settings.city, 105f, 177f, locationSize ?: 7f)
