@@ -2,7 +2,9 @@ package io.github.maxisoft.autoattestation.attestation.form
 
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.github.maxisoft.autoattestation.Application
 import okio.Okio
 import java.io.InputStream
 import java.util.*
@@ -26,6 +28,7 @@ class FormDataAdapterService(private val data: FormDataAdapter) {
     }
 
     companion object {
+        @JvmStatic
         fun createFromStream(inputStream: InputStream): FormDataAdapterService {
             val adapter = moshi.adapter(FormDataAdapter::class.java)
             JsonReader.of(Okio.buffer(Okio.source(inputStream))).use { buffer ->
@@ -34,10 +37,7 @@ class FormDataAdapterService(private val data: FormDataAdapter) {
             }
         }
 
-        val moshi: Moshi by lazy {
-            Moshi.Builder()
-                .addLast(KotlinJsonAdapterFactory())
-                .build()
-        }
+        val moshi: Moshi
+            get() = Application.moshi
     }
 }

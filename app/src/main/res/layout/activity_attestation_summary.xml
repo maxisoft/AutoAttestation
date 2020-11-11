@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="false"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".AttestationSummary">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:clipToPadding="false"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:translationY="-6dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <!-- put whatever you want -->
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="fitCenter"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:translationX="16dp"
+                app:srcCompat="@drawable/baseline_arrow_back_black_36"
+                app:tint="#5770BE"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="35dp" />
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/qrcode"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_weight="0.5"
+        android:minWidth="150dp"
+        android:minHeight="150dp"
+        android:scaleType="fitCenter"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/qrtranscription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="0.4"
+        android:fontFamily="@font/marianne_bold"
+        android:gravity="center_horizontal"
+        android:maxLines="8"
+        android:minHeight="400dp"
+        android:minLines="7"
+        android:text="@string/qr_transcription_example"
+        android:textColor="@color/black"
+        android:textIsSelectable="false"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>
