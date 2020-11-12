@@ -33,7 +33,7 @@ jobs:
       - name: Build release APK
         run: bash ./gradlew assembleRelease --stacktrace
       
-      - uses: jobobby04/sign-android-release@v1.0.3
+      - uses: zhuhaow/sign-android-release@master
         with:
           releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.signingKeyBase64 }}
