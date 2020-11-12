@@ -2,14 +2,15 @@ package io.github.maxisoft.autoattestation
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.graphics.Point
+import android.graphics.Rect
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidmads.library.qrgenearator.QRGEncoder
@@ -71,28 +72,44 @@ class AttestationSummary : AppCompatActivity() {
     }
 
 
-    private fun resizeTextToFit(textView: TextView) {
-        val text = textView.text.toString()
-
+    private fun resizeTextToFit(textView: TextView, counter: Long = 0) {
         val minTextSize = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP,
-            7f,
+            3f,
             resources.displayMetrics
         )
 
-        val measurePaint = Paint(textView.paint)
-        var width: Float = measurePaint.measureText(text)
-        val labelWidth: Float = textView.width.toFloat()
-        val maxLines: Int = textView.maxLines
-
-        while (labelWidth > 0 && width / maxLines > labelWidth - 20) {
-            val textSize: Float = measurePaint.textSize
-            measurePaint.textSize = textSize - 1
-            width = measurePaint.measureText(text)
-            if (textSize < minTextSize) break
+        if (!textView.getGlobalVisibleRect(Rect())) {
+            require(counter < 130L)
+            Handler(mainLooper).post { resizeTextToFit(textView, counter + 1) }
+            return
         }
 
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, measurePaint.textSize)
+        Log.d("Attestation", "iter: ${counter + 1}")
+        if (textView.layout.getEllipsisCount(textView.lineCount - 1) > 0) {
+            if (counter == 0L) {
+                textView.alpha = 0.1f
+            }
+            val newSize = textView.textSize * 0.9f
+            if (newSize > minTextSize) {
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, newSize)
+                Handler(mainLooper).post { resizeTextToFit(textView, counter + 1) }
+            } else {
+                Log.w(
+                    "Attestation",
+                    "unable to find font size in ${counter + 1} iteration for text ${textView.text}"
+                )
+                textView.alpha = 1f
+                require(counter != 0L)
+            }
+        } else {
+            textView.alpha = 1f
+            Log.d(
+                "Attestation",
+                "Using text size ${textView.textSize} using ${counter + 1} iterations"
+            )
+        }
+
     }
 
     private class GenQrTask(
