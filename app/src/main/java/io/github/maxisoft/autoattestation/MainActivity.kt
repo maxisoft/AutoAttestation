@@ -287,7 +287,7 @@ class MainActivity : AppCompatActivity() {
                 calendar,
                 birthday,
                 leavingTime,
-                reasons.map { it.hashCode() }.reduce { acc, reason -> acc * 31 + reason })
+                reasons.map { it.hashCode() }.reduceOrNull { acc, reason -> acc * 31 + reason } ?: 0)
                 .map { it.hashCode().toLong() }
                 .reduce { acc, it ->
                     31 * acc + it
