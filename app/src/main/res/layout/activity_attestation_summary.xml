@@ -13,42 +13,45 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_weight="0">
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="false"
             android:clipToPadding="false"
+            android:descendantFocusability="afterDescendants"
+            android:minHeight="60dp"
             android:scaleX="1.2"
             android:scaleY="1.2"
             android:translationY="-6dp"
             app:cardCornerRadius="1dp"
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            tools:targetApi="lollipop">
 
             <!-- put whatever you want -->
 
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="4dp"
-                android:scaleType="fitCenter"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                android:translationX="16dp"
-                app:srcCompat="@drawable/baseline_arrow_back_black_36"
-                app:tint="#5770BE"
-                tools:layout_editor_absoluteX="14dp"
-                tools:layout_editor_absoluteY="35dp" />
         </androidx.cardview.widget.CardView>
 
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="25dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/baseline_arrow_back_black_36"
+            app:tint="#5770BE" />
     </FrameLayout>
+
+
+
 
     <ImageView
         android:id="@+id/qrcode"

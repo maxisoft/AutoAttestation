@@ -49,6 +49,13 @@ class AttestationSummary : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.backButton).apply {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                elevation = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    7f,
+                    resources.displayMetrics
+                )
+            }
             setOnClickListener {
                 packageManager.getLaunchIntentForPackage("fr.gouv.android.stopcovid")?.let {
                     startActivity(it)
@@ -56,7 +63,6 @@ class AttestationSummary : AppCompatActivity() {
                 }
                 finish()
             }
-
             setOnLongClickListener {
                 finish()
                 true
