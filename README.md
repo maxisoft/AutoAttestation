@@ -22,3 +22,4 @@ De plus l'application ne possede pas l'autorisation de communiquer en réseau.
 Enfin l'application enregistre comme information personelle le strict minimum nécessaire à son fonctionement. La totalité des informations enregistrées sont à tout moment supprimables en utilisant la fonctionalité native "Effacer données application" d'Android.
 
 ## Captures d'écran
+<img src="https://img.tedomum.net/data/Screenshot_1605206173-97f2e9.png" width="250"><img src="https://img.tedomum.net/data/qr_code-67ccfa.png" width="250"><img src="https://img.tedomum.net/data/Screenshot_1605206309-0df667.png" width="250">
