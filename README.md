@@ -9,7 +9,7 @@ Application Android libre pour faire une attestation simplement, sans tracker et
 
 ## Téléchargement
 
-<a href="https://github.com/maxisoft/AutoAttestation/releases/latest/download/AutoAttestation_v1.0.0.apk"><img src="https://i.ibb.co/WFdrZjM/download-apk.png" alt="download-apk" border="0" width="100"></a>
+<a href="https://github.com/maxisoft/AutoAttestation/releases/latest/download/AutoAttestation_v1.1.0.apk"><img src="https://i.ibb.co/WFdrZjM/download-apk.png" alt="download-apk" border="0" width="100"></a>
 
 ## Fonctionnalités
 - Générer une attestation en mode qrcode similaire à l'application [TousAntiCovid](https://play.google.com/store/apps/details?id=fr.gouv.android.stopcovid)
@@ -22,3 +22,4 @@ De plus l'application ne possede pas l'autorisation de communiquer en réseau.
 Enfin l'application enregistre comme information personelle le strict minimum nécessaire à son fonctionement. La totalité des informations enregistrées sont à tout moment supprimables en utilisant la fonctionalité native "Effacer données application" d'Android.
 
 ## Captures d'écran
+<img src="https://img.tedomum.net/data/Screenshot_1605206173-97f2e9.png" width="250"><img src="https://img.tedomum.net/data/qr_code-67ccfa.png" width="250"><img src="https://img.tedomum.net/data/Screenshot_1605206309-0df667.png" width="250">
